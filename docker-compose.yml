@@ -1,0 +1,21 @@
+version: '2'
+services:
+  phoenix:
+    build: .
+    environment:
+      - MIX_ENV=prod
+    ports:
+      - "4000:4000"
+   # volumes:
+  #    - .:/app
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:9.3.17-alpine
+    volumes:
+       - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=phoenix
+volumes:
+    db_data:
